@@ -2,22 +2,71 @@ package br.com.faculdade.imepac
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 class FormLogin : AppCompatActivity() {
+
+    // 1. Variáveis para os campos de Login
+    private lateinit var edit_email: EditText
+    private lateinit var edit_senha: EditText
+    private lateinit var bt_entrada: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_login)
         supportActionBar?.hide()
 
-        // Localiza o texto "Crie uma conta"
-        val linkFormCadastro = findViewById<TextView>(R.id.text_tela_cadastro)
+        // 2. Ligando as variáveis aos IDs da sua tela de Login
+        // ATENÇÃO: Verifique se os seus IDs no XML estão com esses nomes mesmo!
+        edit_email = findViewById(R.id.edit_email)
+        edit_senha = findViewById(R.id.edit_senha)
+        bt_entrada = findViewById(R.id.bt_entrada)
 
-        // Ação de clique
+        // Botão que leva para a tela de Cadastro (já estava funcionando)
+        val linkFormCadastro = findViewById<TextView>(R.id.text_tela_cadastro)
         linkFormCadastro.setOnClickListener {
             val telaCadastro = Intent(this, FormCadastro::class.java)
             startActivity(telaCadastro)
         }
+
+        // 3. Ação do Botão "Entrar"
+        bt_entrada.setOnClickListener { it ->
+            val email = edit_email.text.toString().trim()
+            val senha = edit_senha.text.toString().trim()
+
+            if (email.isEmpty() || senha.isEmpty()) {
+                val mensagemErro = "Campos não preenchidos, tente novamente"
+                val snackbar = Snackbar.make(it, mensagemErro, Snackbar.LENGTH_LONG)
+                snackbar.show()
+            } else {
+                AutenticarUsuario(it)
+            }
+        }
+    }
+
+    // 4. Função que verifica as credenciais no Firebase
+    private fun AutenticarUsuario(view: View) {
+        val email = edit_email.text.toString().trim()
+        val senha = edit_senha.text.toString().trim()
+
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Login com sucesso! Vai para a Tela de Perfil
+                    val intent = Intent(this, TelaPerfil::class.java)
+                    startActivity(intent)
+                    finish() // Esse comando fecha a tela de login para o usuário não voltar pra ela clicando em "Voltar"
+                } else {
+                    val mensagemErro = "Erro ao autenticar usuário"
+                    val snackbar = Snackbar.make(view, mensagemErro, Snackbar.LENGTH_LONG)
+                    snackbar.show()
+                }
+            }
     }
 }
