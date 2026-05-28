@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Theme.GameCode" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/azul_gamecode</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
     <style name="ContainerConponents">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">250dp</item>

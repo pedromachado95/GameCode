@@ -23,12 +23,11 @@ class FormLogin : AppCompatActivity() {
         supportActionBar?.hide()
 
         // 2. Ligando as variáveis aos IDs da sua tela de Login
-        // ATENÇÃO: Verifique se os seus IDs no XML estão com esses nomes mesmo!
         edit_email = findViewById(R.id.edit_email)
         edit_senha = findViewById(R.id.edit_senha)
         bt_entrada = findViewById(R.id.bt_entrada)
 
-        // Botão que leva para a tela de Cadastro (já estava funcionando)
+        // Botão que leva para a tela de Cadastro
         val linkFormCadastro = findViewById<TextView>(R.id.text_tela_cadastro)
         linkFormCadastro.setOnClickListener {
             val telaCadastro = Intent(this, FormCadastro::class.java)
@@ -58,10 +57,10 @@ class FormLogin : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Login com sucesso! Vai para a Tela de Perfil
-                    val intent = Intent(this, TelaPerfil::class.java)
+                    // Login com sucesso! Vai para a HomeActivity
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
-                    finish() // Esse comando fecha a tela de login para o usuário não voltar pra ela clicando em "Voltar"
+                    finish() // Fecha a tela de login
                 } else {
                     val mensagemErro = "Erro ao autenticar usuário"
                     val snackbar = Snackbar.make(view, mensagemErro, Snackbar.LENGTH_LONG)
