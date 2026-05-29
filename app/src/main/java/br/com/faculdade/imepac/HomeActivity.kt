@@ -21,10 +21,10 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Botão da biblioteca (deixaremos pronto para a próxima etapa)
+        // Botão da biblioteca ativado!
         btBiblioteca.setOnClickListener {
-            // val intent = Intent(this, BibliotecaActivity::class.java)
-            // startActivity(intent)
+            val intent = Intent(this, BibliotecaActivity::class.java)
+            startActivity(intent)
         }
     }
 }

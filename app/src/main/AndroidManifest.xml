@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameCode">
         <activity
+            android:name=".DetalhesCompraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BibliotecaActivity"
+            android:exported="false" />
+        <activity
             android:name=".VitrineActivity"
             android:exported="false" />
         <activity
