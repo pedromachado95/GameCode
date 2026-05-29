@@ -55,4 +55,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_ir_catalogo" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_ir_perfil"
+        style="@style/button"
+        android:layout_marginTop="20dp"
+        android:text="Meu Perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_ir_biblioteca" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
